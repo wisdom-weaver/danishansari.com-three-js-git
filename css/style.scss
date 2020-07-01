@@ -1,0 +1,104 @@
+body{
+    overflow:hidden;
+    height:100vh;
+    width:100%;
+    margin:0;
+    padding:0;
+}
+
+//preload
+#threeD{
+    width:100%;
+    height:100vh;
+}
+.container-preload-full{
+    width:100%;
+    height:100vh;
+    display: flex;
+    position: fixed;
+    top:0;
+    left:0;
+    justify-content: center;
+    align-items: center;
+    margin:0;
+    padding:0;
+    background-color: black;
+    z-index:10;
+    opacity:1;
+    transition:0.5s all;
+}
+.container-preload-full.hide-preload{
+    opacity:0;
+    z-index:-1;
+}
+.container-preload{
+    text-align: center;
+    //margin-top:35vh;
+    animation: 1.2s preload-end forwards ease;
+    animation-delay:3.4s;
+    
+    transition: 1.2s all;
+ }
+
+
+@keyframes preload-end{
+  0%{  transform: scale(1) rotate(0deg); opacity: 1; }
+  100%{ transform: scale(1) rotate( 90deg); opacity: 1; }
+}
+
+svg{
+    position: relative;
+    top:0;
+    left:0;
+}
+
+#rect{
+    stroke-dasharray:  400px;
+    stroke-dashoffset: 800px;
+    animation: 1.2s anim-rect forwards ease;
+    animation-delay:2.2s;
+    
+}
+
+@keyframes anim-rect{
+    from{
+        stroke-dashoffset: 800px;
+    }
+    to{
+        stroke-dashoffset: 400px;
+    }
+}
+
+#S{
+    stroke-dasharray:  1615px;
+    stroke-dashoffset: 1615px;
+    animation: 2.2s anim-S infinite alternate ;
+    animation-delay: 3.4s;
+}
+
+@keyframes anim-S{
+    0%{
+        stroke-dasharray:  1615px;
+        stroke-dashoffset: 1615px;
+    }
+    40%{
+        stroke-dasharray:  807px;
+    }
+    100%{
+        stroke-dasharray:  807px;
+        stroke-dashoffset: 0px;
+    }
+}
+
+#Danish_D{ stroke-dasharray:  183px; stroke-dashoffset: 183px; animation: 2s anim-Danish_D forwards ease; animation-delay: 0s }  @keyframes anim-Danish_D{ from{ stroke-dashoffset: 183px; } to{ stroke-dashoffset: 0px; } } 
+#Danish_a{ stroke-dasharray:  169px; stroke-dashoffset: 169px; animation: 2s anim-Danish_a forwards ease; animation-delay: 0.2s }  @keyframes anim-Danish_a{ from{ stroke-dashoffset: 169px; } to{ stroke-dashoffset: 0px; } } 
+#Danish_n{ stroke-dasharray:  126px; stroke-dashoffset: 126px; animation: 2s anim-Danish_n forwards ease; animation-delay: 0.4s }  @keyframes anim-Danish_n{ from{ stroke-dashoffset: 126px; } to{ stroke-dashoffset: 0px; } } 
+#Danish_i{ stroke-dasharray:  54px; stroke-dashoffset: 54px; animation: 2s anim-Danish_i forwards ease; animation-delay: 0.6s }  @keyframes anim-Danish_i{ from{ stroke-dashoffset: 54px; } to{ stroke-dashoffset: 0px; } } 
+#Danish_s{ stroke-dasharray:  124px; stroke-dashoffset: 124px; animation: 2s anim-Danish_s forwards ease; animation-delay: 0.8s }  @keyframes anim-Danish_s{ from{ stroke-dashoffset: 124px; } to{ stroke-dashoffset: 0px; } } 
+#Danish_h{ stroke-dasharray:  143px; stroke-dashoffset: 143px; animation: 2s anim-Danish_h forwards ease; animation-delay: 1.0s }  @keyframes anim-Danish_h{ from{ stroke-dashoffset: 143px; } to{ stroke-dashoffset: 0px; } } 
+#Ansari_A{ stroke-dasharray:  103px; stroke-dashoffset: 103px; animation: 2s anim-Ansari_A forwards ease; animation-delay: 1.2s }  @keyframes anim-Ansari_A{ from{ stroke-dashoffset: 103px; } to{ stroke-dashoffset: 0px; } } 
+#Ansari_n{ stroke-dasharray:  74px; stroke-dashoffset: 74px; animation: 2s anim-Ansari_n forwards ease; animation-delay: 1.4s }  @keyframes anim-Ansari_n{ from{ stroke-dashoffset: 74px; } to{ stroke-dashoffset: 0px; } } 
+#Ansari_s{ stroke-dasharray:  79px; stroke-dashoffset: 79px; animation: 2s anim-Ansari_s forwards ease; animation-delay: 1.6s }  @keyframes anim-Ansari_s{ from{ stroke-dashoffset: 79px; } to{ stroke-dashoffset: 0px; } } 
+#Ansari_a{ stroke-dasharray:  95px; stroke-dashoffset: 95px; animation: 2s anim-Ansari_a forwards ease; animation-delay: 1.8s }  @keyframes anim-Ansari_a{ from{ stroke-dashoffset: 95px; } to{ stroke-dashoffset: 0px; } } 
+#Ansari_r{ stroke-dasharray:  39px; stroke-dashoffset: 39px; animation: 2s anim-Ansari_r forwards ease; animation-delay: 2.0s }  @keyframes anim-Ansari_r{ from{ stroke-dashoffset: 39px; } to{ stroke-dashoffset: 0px; } } 
+#Ansari_i{ stroke-dasharray:  36px; stroke-dashoffset: 36px; animation: 2s anim-Ansari_i forwards ease; animation-delay: 2.2s }  @keyframes anim-Ansari_i{ from{ stroke-dashoffset: 36px; } to{ stroke-dashoffset: 0px; } } 
