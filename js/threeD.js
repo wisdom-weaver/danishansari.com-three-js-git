@@ -215,9 +215,8 @@ async function init(){
     camera.position.set(300,300,300);
 
     recursive(0,cords).then(()=>{
-        //console.log('ended the rec cords');
         rotatearoundcenter(0).then(()=>{
-            //console.log('ended this rotationala motion');
+            camSpan(590,590,590);
         });
     });
     
@@ -232,9 +231,9 @@ function rotatearoundcenter(i){
             return resolve();
         }else{
             return setTimeout(()=>{
-                var x= Math.sin(i*Math.PI)*100;
+                var x= Math.sin(i*Math.PI)*60;
                 var y= 0;
-                var z= Math.cos(i*Math.PI)*100;
+                var z= Math.cos(i*Math.PI)*60;
                 //console.log(i,x,y,z);
                 camera.position.set(x,y,z);
                 camera.lookAt(0,0,0);
@@ -261,6 +260,8 @@ var i=0;
 //update the frame
 var update = function(){
     world.rotation.y += 0.01;
+    //world.rotation.x += 0.01;
+    world.rotation.z += 0.001;
 };
 
 //render the graphics
