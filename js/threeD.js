@@ -16,74 +16,67 @@ renderer.setSize( width, height );
 document.body.appendChild(renderer.domElement);
 
 //adding user controls to the scene
-var controls = new THREE.OrbitControls(camera, renderer.domElement);
+var contorls ;
+function set_controls(){
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+}
 
 
 
 
 //world ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-var worldGeometry = new THREE.SphereGeometry( 350, 32, 32 );
-var worldTexture = new THREE.TextureLoader().load('../assets/world/space.jpg');
-var worldMaterial = new THREE.MeshBasicMaterial({map : worldTexture, overdraw: 0.1, side: THREE.DoubleSide });
-var world = new THREE.Mesh( worldGeometry, worldMaterial );
-scene.add( world );
+var world;
+function createWorld(){
+    var worldGeometry = new THREE.SphereGeometry( 350, 32, 32 );
+    var worldTexture = new THREE.TextureLoader().load('../assets/world/space.jpg');
+    var worldMaterial = new THREE.MeshBasicMaterial({map : worldTexture, overdraw: 0.1, side: THREE.DoubleSide });
+    world = new THREE.Mesh( worldGeometry, worldMaterial );
+    scene.add( world );
+}
 
 
 //center sphere font ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+var sphere;
 var CubeTextureLoader = new THREE.CubeTextureLoader();
-CubeTextureLoader.setPath( '../assets/world/' );
+    CubeTextureLoader.setPath( '../assets/world/' );
 
-var textureCube = CubeTextureLoader.load( [
-	'left.jpg', 'right.jpg',
-	'top.jpg', 'bottom.jpg',
-	'front.jpg', 'back.jpg'
-] );
+    var textureCube = CubeTextureLoader.load( [
+    	'left.jpg', 'right.jpg',
+    	'top.jpg', 'bottom.jpg',
+    	'front.jpg', 'back.jpg'
+    ] );
 
-var sphereGeometry = new THREE.SphereGeometry(6,32,32);
-var sphereMaterial = new THREE.MeshBasicMaterial({
-    color:  0xffffff,
-    envMap: textureCube
-});
+    var sphereGeometry = new THREE.SphereGeometry(6,32,32);
 
-var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-sphere.position.set(0,0,0);
-scene.add( sphere );
+function create_sphere(){
+    
+    var sphereMaterial = new THREE.MeshBasicMaterial({
+        color:  0xffffff,
+        envMap: textureCube
+    });
 
+    sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    sphere.position.set(0,0,0);
+    scene.add( sphere );
+
+}
 
 //danishansari font----------------------------------------------------------------------------
-var fontLoader = new THREE.FontLoader();
-var fontloaderload =   fontLoader.load( '../assets/fonts/helvetiker_regular.typeface.json', function(font){textload(font)} );
-var datext, comtext;
-var textload = function ( font ) {
-    var textGeomertyConfig ={
-        font: font,
-        size: 8,
-        height: 3.5,
-        curveSegments: 30,
-        bevelEnabled: true,
-        bevelThickness: 4,
-        bevelSize: 1,
-        bevelOffset: 0,
-        bevelSegments: 25
-    };
-    var dageometry = new THREE.TextGeometry( 'DANISH\nANSARI', textGeomertyConfig );
-    datext = new THREE.Mesh( dageometry, sphereMaterial);
-    var comgeometry = new THREE.TextGeometry( 'com', textGeomertyConfig );
-    comtext = new THREE.Mesh( comgeometry, sphereMaterial);    
-    datext.position.set(-21,25,0);
-    comtext.position.set(-12,-13,0);
-    scene.add(datext); scene.add(comtext);
-};
 
+//function create_danishansarifont(){
+ 
+
+
+//}
 //lighting
-var ambientLight = new THREE.AmbientLight(0x404040,3);
-scene.add(ambientLight);
+function create_lighting(){
+    var ambientLight = new THREE.AmbientLight(0x404040,3);
+    scene.add(ambientLight);
 
-var directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
-directionalLight.position.set(15,15,15);
-scene.add( directionalLight );
-
-
+    var directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
+    directionalLight.position.set(15,15,15);
+    scene.add( directionalLight );
+}
 
 window.addEventListener('resize', function(){
     width = window.innerWidth;
@@ -95,25 +88,8 @@ window.addEventListener('resize', function(){
 
 //animate logo--------------------------------------------------------------------------------------------------------------------------------------------------------
 async function animateLogo(){
-    //camera span 75 at x to 75 at y and -75 y to 75 z
     camSpan(-75,  75,  75);
-    //await  camSpan( 75, -75,  75);
-    //await  camSpan( 75,  75, -75);
-
 }
-
-/*async function cam(x,y,z,vx,vy,vz){
-    var xs = (camera.position.x<x)?1:-1;
-    var ys = (camera.position.y<y)?1:-1;
-    var zs = (camera.position.z<z)?1:-1;
-    if(Math.round(camera.position.x)==x && Math.round(camera.position.y)==y && Math.round(camera.position.z)==z){  return;}
-    if(Math.round(camera.position.x) != x) camera.position.x += xs*vx*1;
-    if(Math.round(camera.position.y) != y) camera.position.y += ys*vy*1;
-    if(Math.round(camera.position.z) != z) camera.position.z += zs*vz*1;
-    camera.lookAt(0,0,0);
-    setTimeout(async function(){( await cam(x,y,z,vx,vy,vz));},1);
-}*/
-
 
 async function cam(x,y,z,vx,vy,vz){
     var xs = (camera.position.x<x)?1:-1;
@@ -186,6 +162,9 @@ function recursive(i,cords){
 }
 
 async function init(){
+    createWorld();
+    create_sphere();
+    
     var cords=[
         { x:   300 ,        y:   300 ,        z:   300 },
         { x:   50 ,        y:   50 ,        z:   50 },
@@ -243,13 +222,6 @@ function rotatearoundcenter(i){
 
 
 var i=0;
-//var boxGeomerty =  new THREE.BoxGeometry(300,300,300);
-//var boxTexture = new THREE.MeshBasicMaterial({color:0xffffff});
-//var cube = new THREE.Mesh(boxGeomerty, boxTexture);
-//cube.position.set(0,0,0);
-//scene.add(cube);
-//
-
 //update the frame
 var update = function(){
     world.rotation.y += 0.01;
@@ -268,4 +240,6 @@ var GameLoop = function(){
     render();
 };
 
-document.addEventListener('DOMContentLoaded', init);
+ $('document').ready(function(){
+    init();
+ });
