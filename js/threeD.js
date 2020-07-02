@@ -47,13 +47,13 @@ var CubeTextureLoader = new THREE.CubeTextureLoader();
     ] );
 
     var sphereGeometry = new THREE.SphereGeometry(6,32,32);
-
-function create_sphere(){
-    
-    var sphereMaterial = new THREE.MeshBasicMaterial({
+    var sphereMaterial = new THREE.MeshPhongMaterial({
         color:  0xffffff,
         envMap: textureCube
     });
+function create_sphere(){
+    
+    
 
     sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
     sphere.position.set(0,0,0);
@@ -62,19 +62,52 @@ function create_sphere(){
 }
 
 //danishansari font----------------------------------------------------------------------------
+var loader = new THREE.FontLoader();
 
-//function create_danishansarifont(){
- 
+var helvetiker_bold_font;
+var load_helvetiker_bold_font = new Promise((resolve)=>{    
+    loader.load( '../assets/fonts/helvetiker_bold.typeface.json', function ( font ) {
+        helvetiker_bold_font = font;
+        resolve();
+    });        
+});
+
+load_helvetiker_bold_font.then(()=>{
+    console.log('this is a font')
+    var textGeometryParams = {
+        font: helvetiker_bold_font,
+        size: 5,
+        height: 3,
+        curveSegments: 12,
+        bevelThickness: 0.1,
+        bevelSize: 0.1,
+        bevelEnabled: true
+    }
+    
+    function createText(text){
+        var textGeometry = new THREE.TextGeometry( text, textGeometryParams ); 
+        var textMaterial = new THREE.MeshPhongMaterial( 
+          { color: 0xffffff, specular: 0xffffff , envMap: textureCube}
+        );  
+        return  new THREE.Mesh( textGeometry, textMaterial );
+    }
+    
+    var danish = createText("DANISH\nANSARI");
+    danish.position.set(-15,16,0);
+    scene.add( danish );
+    var com = createText("com");
+    com.position.set(-6.5,-11,0);
+    scene.add( com );
+})
 
 
-//}
 //lighting
 function create_lighting(){
-    var ambientLight = new THREE.AmbientLight(0x404040,3);
+    var ambientLight = new THREE.AmbientLight(0xffffff,1);
     scene.add(ambientLight);
 
-    var directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
-    directionalLight.position.set(15,15,15);
+    var directionalLight = new THREE.DirectionalLight( 0xff0000, 10 );
+    directionalLight.position.set(0,70,70);
     scene.add( directionalLight );
 }
 
@@ -162,9 +195,11 @@ function recursive(i,cords){
 }
 
 async function init(){
+    create_lighting();
     createWorld();
     create_sphere();
-    
+    set_controls();
+
     var cords=[
         { x:   300 ,        y:   300 ,        z:   300 },
         { x:   50 ,        y:   50 ,        z:   50 },
@@ -175,6 +210,7 @@ async function init(){
         { x:    0 ,        y:   10 ,        z:   70 },
         
     ];
+
     camera.lookAt(0,0,0);
     camera.position.set(300,300,300);
 
